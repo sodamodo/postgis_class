@@ -104,6 +104,13 @@ UPDATE parcel_points SET geom = ST_SetSRID(ST_Point(lon, lat),4326)
 ```
 
 
+##### Harvard dist
+
+```SQL
+WITH query AS (
+	SELECT ST_Distance(ST_SetSRID(ST_Point(42.3770, -71.1167), 4326), geom) AS distance, type, sub_type, area, value, geom FROM parcel_points;
+```
+
 ##### Create universities table
 
 ```SQL
