@@ -114,13 +114,13 @@ UPDATE parcel_points SET geom = ST_SetSRID(ST_Point(lon, lat),4326)
 ##### Harvard dist
 
 ```SQL
-ALTER TABLE parcel_points ADD COLUMN harvard_dist NUMERIC;
+ALTER TABLE parcel_points ADD COLUMN harvard_dist DOUBLE PRECISION;
 
 WITH query AS (
-	SELECT ST_Distance(ST_SetSRID(ST_Point(42.3770, -71.1167), 4326), geom) AS distance, type, sub_type, area, value, geom FROM parcel_points
+	SELECT ST_Distance(ST_SetSRID(ST_Point(42.3770, -71.1167), 4326), geom) AS distance, type, sub_type, area, value, geom FROM parcel_points_subset
 )
 
-UPDATE parcel_points SET harvard_dist = query.distance FROM query;
+UPDATE parcel_points_subset SET harvard_dist = query.distance FROM query;
 ```
 
 
@@ -134,6 +134,9 @@ ALTER TABLE universities ADD COLUMN geom geometry(POINT,4326);
 
 UPDATE universities SET geom = ST_SetSRID(ST_Point(lon, lat),4326)
 ```
+
+
+
 
 ##### THINGS TO PUT INTO
 
