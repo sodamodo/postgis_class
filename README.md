@@ -4,7 +4,7 @@
 #### Create a table with a variety of data types
 
 ```SQL
-`CREATE EXTENSION postgis;`
+CREATE EXTENSION postgis;
 ```
 
 
