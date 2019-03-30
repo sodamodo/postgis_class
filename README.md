@@ -4,6 +4,11 @@
 #### Create a table with a variety of data types
 
 ```SQL
+`CREATE EXTENSION postgis;`
+```
+
+
+```SQL
 CREATE TABLE burgers
 	(
 	  name VARCHAR(20),
@@ -17,14 +22,11 @@ CREATE TABLE burgers
 
 * Always use single quotes!
 
-```INSERT INTO burgers VALUES ('cheese burger', 'WA', 2.34, 5, NO)
+```INSERT INTO burgers VALUES ('cheese burger', 'WA', 2.34, 5, NO)```
 
 
 
 
-```SQL
-`CREATE EXTENSION postgis;`
-```
 
 ##### create table / data types
 
