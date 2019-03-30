@@ -134,8 +134,14 @@ ALTER TABLE universities ADD COLUMN geom geometry(POINT,4326);
 
 UPDATE universities SET geom = ST_SetSRID(ST_Point(lon, lat),4326)
 ```
+```SQL
+WITH within AS (
+	SELECT ST_DWithin(ST_SetSRID(ST_Point(42.3770, -71.1167), 4326), geom, ) AS compare FROM parcel_points_copy
+		) 
 
 
+SELECT COUNT(*) FROM within WHERE compare = FALSE;
+```
 
 
 ##### THINGS TO PUT INTO
