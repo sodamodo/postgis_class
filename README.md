@@ -143,6 +143,9 @@ WITH within AS (
 SELECT COUNT(*) FROM within WHERE compare = FALSE;
 ```
 
+```SQL
+CREATE TABLE parcel_points_commercial AS (SELECT * FROM parcel_points_copy WHERE type = 'Commercial);
+```
 
 ##### THINGS TO PUT INTO
 
