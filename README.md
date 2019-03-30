@@ -22,7 +22,7 @@ CREATE TABLE burgers
 
 * Always use single quotes!
 
-```INSERT INTO burgers VALUES ('cheese burger', 'WA', 2.34, 5, NO)```
+```INSERT INTO burgers VALUES ('cheese burger', 'WA', 2.34, 5, False)```
 
 
 
