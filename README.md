@@ -113,19 +113,6 @@ UPDATE parcel_points SET geom = ST_SetSRID(ST_Point(lon, lat),4326)
 ```
 
 
-##### Harvard dist
-
-```SQL
-ALTER TABLE parcel_points ADD COLUMN harvard_dist DOUBLE PRECISION;
-
-WITH query AS (
-	SELECT ST_Distance(ST_SetSRID(ST_Point(42.3770, -71.1167), 4326), geom) AS distance, type, sub_type, area, value, geom FROM parcel_points_subset
-)
-
-UPDATE parcel_points_subset SET harvard_dist = query.distance FROM query;
-```
-
-
 
 
 SELECT ST_Distance(ST_SetSRID(ST_Point(42.3770, -71.1167), 4326), geom) AS distance FROM parcel_points ORDER BY distance DESC; 
@@ -136,6 +123,11 @@ ALTER TABLE universities ADD COLUMN geom geometry(POINT,4326);
 
 UPDATE universities SET geom = ST_SetSRID(ST_Point(lon, lat),4326)
 ```
+#### Add Column for Whether or not within dist of harvard
+
+ALTER TABLE parcel_points_copy ADD COLUMN within_100_m BOOLEAN;
+
+
 ```SQL
 WITH within AS (
 	SELECT ST_DWithin(ST_SetSRID(ST_Point(42.3770, -71.1167), 4326), geom, ) AS compare FROM parcel_points_copy
@@ -148,6 +140,8 @@ SELECT COUNT(*) FROM within WHERE compare = FALSE;
 ```SQL
 CREATE TABLE parcel_points_commercial AS (SELECT * FROM parcel_points_copy WHERE type = 'Commercial);
 ```
+
+
 
 ##### THINGS TO PUT INTO
 
