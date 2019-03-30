@@ -1,22 +1,29 @@
 # postgis_class
 
 
-NOTES
-* Get CSV load not to use headers 
+#### Create a table with a variety of data types
 
-* select distinct types of appts
-##### Add Extension
-
-`CREATE EXTENSION postgis;`
-
-##### Priviledges
 ```SQL
-GRANT USAGE ON SCHEMA public TO postgres;
+CREATE TABLE burgers
+	(
+	  name VARCHAR(20),
+	  origin_state CHAR(2),
+	  price NUMERIC,
+	  quantity INTEGER,
+	  vegetarian BOOLEAN
+	);
 
-GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO postgres;
+```
 
-ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON TABLES to postgres;
+* Always use single quotes!
 
+```INSERT INTO burgers VALUES ('cheese burger', 'WA', 2.34, 5, NO)
+
+
+
+
+```SQL
+`CREATE EXTENSION postgis;`
 ```
 
 ##### create table / data types
@@ -96,7 +103,7 @@ ALTER COLUMN lon TYPE NUMERIC USING lon::numeric;
 
 
 ALTER TABLE parcel_points
-	ADD COLUMN geom geometry(POINT,4326)
+	ADD COLUMN geom geometry(POINT,4326);
 
 
 UPDATE parcel_points SET geom = ST_SetSRID(ST_Point(lon, lat),4326)
@@ -107,6 +114,8 @@ UPDATE parcel_points SET geom = ST_SetSRID(ST_Point(lon, lat),4326)
 ##### Harvard dist
 
 ```SQL
+ALTER TABLE parcel_points ADD COLUMN harvard_dist NUMERIC;
+
 WITH query AS (
 	SELECT ST_Distance(ST_SetSRID(ST_Point(42.3770, -71.1167), 4326), geom) AS distance, type, sub_type, area, value, geom FROM parcel_points
 )
@@ -114,16 +123,6 @@ WITH query AS (
 UPDATE parcel_points SET harvard_dist = query.distance FROM query;
 ```
 
-##### Create universities table
-
-```SQL
-CREATE TABLE universities(name VARCHAR(50), lat NUMERIC, lon NUMERIC);
-```
-
-##### Insert into Uni table
-```SQL
-INSERT INTO universities VALUES('Harvard', 42.3770, -71.1167);
-```
 
 
 
