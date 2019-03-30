@@ -128,6 +128,13 @@ UPDATE parcel_points SET harvard_dist = query.distance FROM query;
 
 SELECT ST_Distance(ST_SetSRID(ST_Point(42.3770, -71.1167), 4326), geom) AS distance FROM parcel_points ORDER BY distance DESC; 
 
+#### Universities 
+```SQL
+ALTER TABLE universities ADD COLUMN geom geometry(POINT,4326);
+
+UPDATE universities SET geom = ST_SetSRID(ST_Point(lon, lat),4326)
+```
+
 ##### THINGS TO PUT INTO
 
 * Select by distance to location
