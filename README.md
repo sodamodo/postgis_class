@@ -141,7 +141,11 @@ SELECT COUNT(*) FROM within WHERE compare = FALSE;
 CREATE TABLE parcel_points_commercial AS (SELECT * FROM parcel_points_copy WHERE type = 'Commercial);
 ```
 
+```SQL
 
+SELECT DISTINCT ST_DWithin(ST_SetSRID(ST_Point(42.3770, -71.1167), 4326), geom, 150) AS within_300_m FROM parcel_points_copy;
+
+```
 
 ##### THINGS TO PUT INTO
 
