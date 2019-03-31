@@ -24,10 +24,6 @@ CREATE TABLE burgers
 
 ```INSERT INTO burgers VALUES ('cheese burger', 'WA', 2.34, 5, False)```
 
-
-
-
-
 ##### create table / data types
 
 ```SQL
@@ -117,33 +113,23 @@ UPDATE parcel_points SET geom = ST_SetSRID(ST_Point(lon, lat),4326)
 
 SELECT ST_Distance(ST_SetSRID(ST_Point(42.3770, -71.1167), 4326), geom) AS distance FROM parcel_points ORDER BY distance DESC; 
 
-#### Universities 
-```SQL
-ALTER TABLE universities ADD COLUMN geom geometry(POINT,4326);
-
-UPDATE universities SET geom = ST_SetSRID(ST_Point(lon, lat),4326)
-```
-#### Add Column for Whether or not within dist of harvard
-
-ALTER TABLE parcel_points_copy ADD COLUMN within_100_m BOOLEAN;
-
 
 ```SQL
-WITH within AS (
-	SELECT ST_DWithin(ST_SetSRID(ST_Point(42.3770, -71.1167), 4326), geom, ) AS compare FROM parcel_points_copy
-		) 
+DROP TABLE IF EXISTS parcels_within;
+
+CREATE TABLE parcels_within AS (
+	
+SELECT ST_DWithin(ST_SetSRID(ST_Point(42.3770, -71.1167), 4326), geom, 200) AS within, id, geom, value, type FROM parcel_points_copy
 
 
-SELECT COUNT(*) FROM within WHERE compare = FALSE;
-```
+);
 
-```SQL
-CREATE TABLE parcel_points_commercial AS (SELECT * FROM parcel_points_copy WHERE type = 'Commercial);
-```
+SELECT COUNT(*) FROM parcels_within WHERE within = TRUE AND type = 'Commercial';
 
-```SQL
+CREATE TABLE coffee_shops_buffer AS (
+	SELECT ST_Buffer(geom, 100) FROM coffee_shops
 
-SELECT DISTINCT ST_DWithin(ST_SetSRID(ST_Point(42.3770, -71.1167), 4326), geom, 150) AS within_300_m FROM parcel_points_copy;
+	);
 
 ```
 
