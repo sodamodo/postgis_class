@@ -21,8 +21,12 @@ CREATE TABLE burgers
 ```
 
 * Always use single quotes!
+* USE EXPLICIT ORDERING 
+```SQL
 
-```INSERT INTO burgers VALUES ('cheese burger', 'WA', 2.34, 5, False)```
+INSERT INTO burgers VALUES ('cheese burger', 'WA', 2.34, 5, False)
+
+```
 
 
 #### Create points table
