@@ -24,6 +24,66 @@ CREATE TABLE burgers
 
 ```INSERT INTO burgers VALUES ('cheese burger', 'WA', 2.34, 5, False)```
 
+
+#### Create points table
+```SQL
+CREATE TABLE points (
+	##### ID SERIAL BLA  BLA BLA
+	name VARCHAR,
+	geom geometry(POINT, 4326)
+)
+```
+#### Insert points
+
+```SQL
+	INSERT INTO points VALUES('first', ST_SetSRID(ST_GeomFromText('POINT(-71.064544 42.28787)'), 4326))
+
+
+SELECT * FROM points;
+```
+* Go to QGIS
+
+
+```SQL
+CREATE TABLE line (
+	##### SETUP ID
+	line_name VARCHAR,
+	geom GEOMETRY(LINESTRING, 4326)
+);
+
+INSERT INTO line VALUES('first line', ST_GeomFromText('LINESTRING(10 5, 10 6, 10 9, 11 9)', 4326));
+
+```
+
+
+```SQL
+CREATE TABLE buffered_lines AS (
+	SELECT ST_Buffer(geom, 100) FROM line
+);
+```
+
+```SQL
+
+SELECT * FROM line;
+
+SELECT ST_AsGeoJSON(geom) FROM line;
+
+
+SELECT * FROM buffered_lines;
+SELECT ST_AsGeoJSON(st_buffer) FROM buffered_lines;
+```
+
+
+
+
+
+
+
+
+
+
+
+
 ##### create table / data types
 
 ```SQL
@@ -48,11 +108,6 @@ CREATE TABLE coffee_shops
 ALTER TABLE coffee_shops 
 ALTER COLUMN price TYPE NUMERIC USING price::numeric;
 ```
-
-##### Select by distinct 
-
-##### Select WHERE
-
 ##### New column
 
 `ALTER TABLE coffee_shops ADD COLUMN price_word VARCHAR(5);`
