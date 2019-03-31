@@ -57,6 +57,9 @@ CREATE TABLE line (
 
 INSERT INTO line VALUES('first line', ST_GeomFromText('LINESTRING(10 5, 10 6, 10 9, 11 9)', 4326));
 
+
+SELECT ST_Length(geom) FROM line;
+SELECT ST_Length(geom:: geography) FROM line;
 ```
 
 
@@ -80,9 +83,28 @@ SELECT ST_AsGeoJSON(st_buffer) FROM buffered_lines;
 
 
 
+```SQL
+CREATE TABLE polygon(name VARCHAR, geom GEOMETRY(POLYGON,4326));
 
 
+INSERT INTO polygon VALUES('Polygonner', ST_GeomFromText('POLYGON((0 0, 0 10, 10 10, 10 0, 0 0))', 4326));
 
+```
+
+```SQL
+WITH buffered_lines AS (SELECT * FROM buffered_lines)	
+SELECT ST_Difference(buffered_lines.st_buffer, polygon.geom) FROM polygon, buffered_lines
+
+
+CREATE TABLE intersection AS(
+	WITH buffered_lines AS (SELECT * FROM buffered_lines)	
+	SELECT ST_Difference(buffered_lines.st_buffer, polygon.geom) FROM polygon, buffered_lines
+);
+
+```
+
+
+##### EXERCISE CREATE TWO FEATURES, BUFFER THEM, and CREATE INTERSECT
 
 
 
