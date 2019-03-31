@@ -91,6 +91,16 @@ INSERT INTO polygon VALUES('Polygonner', ST_GeomFromText('POLYGON((0 0, 0 10, 10
 
 ```
 
+##### Change SRID
+
+```SQL
+
+SELECT geom FROM points
+SELECT ST_Transform(geom, 6855) FROM points
+```
+
+
+##### ST_Difference 
 ```SQL
 WITH buffered_lines AS (SELECT * FROM buffered_lines)	
 SELECT ST_Difference(buffered_lines.st_buffer, polygon.geom) FROM polygon, buffered_lines
@@ -108,7 +118,16 @@ CREATE TABLE intersection AS(
 
 
 
+Difference + Buffer
 
+```SQL
+
+CREATE TABLE difference_buffer AS(
+	WITH points AS (SELECT * FROM points)
+
+	SELECT ST_Difference(ST_Buffer(points.geom, .1), polygon.geom) FROM points, polygon
+);
+```
 
 ##### create table / data types
 
