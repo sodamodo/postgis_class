@@ -207,12 +207,38 @@ ALTER TABLE parcel_points
 UPDATE parcel_points SET geom = ST_SetSRID(ST_Point(lon, lat),4326)
 	
 ```
+CREATE TABLE universities(
+	name VARCHAR,
+	geom GEOMETRY(POINT, 4326)
+
+);
 
 
 
+INSERT INTO universities VALUES('Harvard', ST_SetSRID(ST_Point(-71.1167, 42.3770), 4326)); 
 
-SELECT ST_Distance(ST_SetSRID(ST_Point(42.3770, -71.1167), 4326), geom) AS distance FROM parcel_points ORDER BY distance DESC; 
 
+CREATE TABLE harvard_buffer AS (SELECT name, ST_Buffer(geom:: geography, 800) AS geom FROM universities WHERE name = 'Harvard');
+
+CREATE TABLE harvard_buffer AS (SELECT name, ST_Buffer(geom:: geography, 1000) AS geom FROM universities WHERE name = 'Harvard');
+
+CREATE TABLE commercial_parcels AS (
+	SELECT * FROM parcel_points WHERE type = 'Commercial'
+);
+
+
+ALTER TABLE commercial_parcels ALTER COLUMN area TYPE numeric USING area::numeric; 
+ALTER TABLE commercial_parcels ALTER COLUMN value TYPE numeric USING value::numeric; 
+
+ALTER TABLE commercial_parcels ADD COLUMN val_per_area NUMERIC;
+
+UPDATE commercial_parcels SET val_per_area = value / area WHERE area != 0 AND value != 0;
+
+
+CREATE TABLE parcels_near_harvard AS (
+	SELECT commercial_parcels.geom, commercial_parcels.val_per_area FROM commercial_parcels, harvard_buffer WHERE ST_Contains(commercial_parcels.geom, harvard_buffer.geom:: geometry)
+
+);
 
 ```SQL
 DROP TABLE IF EXISTS parcels_within;
