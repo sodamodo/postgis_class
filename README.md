@@ -219,7 +219,7 @@ CREATE TABLE universities(
 );
 
 
-
+```SQL
 INSERT INTO universities VALUES('Harvard', ST_SetSRID(ST_Point(-71.1167, 42.3770), 4326)); 
 
 
@@ -244,6 +244,9 @@ CREATE TABLE parcels_near_harvard AS (
 	SELECT commercial_parcels.geom, commercial_parcels.val_per_area FROM commercial_parcels, harvard_buffer WHERE ST_Contains(commercial_parcels.geom, harvard_buffer.geom:: geometry)
 
 );
+
+```
+
 
 ```SQL
 DROP TABLE IF EXISTS parcels_within;
