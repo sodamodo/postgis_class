@@ -11,6 +11,7 @@ CREATE EXTENSION postgis;
 ```SQL
 CREATE TABLE burgers
 	(
+	  id SERIAL PRIMARY KEY,
 	  name VARCHAR(20),
 	  origin_state CHAR(2),
 	  price NUMERIC,
@@ -19,6 +20,10 @@ CREATE TABLE burgers
 	);
 
 ```
+
+
+SELECT * FROM foods INNER JOIN foods_reviews ON foods.name = foods_reviews.name;
+
 
 * Always use single quotes!
 * USE EXPLICIT ORDERING 
@@ -32,7 +37,7 @@ INSERT INTO burgers VALUES ('cheese burger', 'WA', 2.34, 5, False)
 #### Create points table
 ```SQL
 CREATE TABLE points (
-	##### ID SERIAL BLA  BLA BLA
+	id SERIAL PRIMARY KEY,
 	name VARCHAR,
 	geom geometry(POINT, 4326)
 )
