@@ -1,10 +1,17 @@
 Load shapefiles into PgAdmin4
 Install PgAdmin4
 
-
+### Loading shapefiles
+shp2pgsql
+ogr2ogr
 ## Geography vs Geometry 
 
 #### Funcs
+
+#### ST_Segmentize
+Can only be used in geography!
+
+
 
 ##### ST_Distance
 Gives the distance between two features. Notice that the features are in the Geometry data type,
@@ -50,4 +57,9 @@ CREATE TABLE students
   student_id SERIAL PRIMARY KEY,
   player_name TEXT
 );
+```
+#### Common Table Expression
+
+```SQL
+WITH subquery AS (SELECT * FROM X)
 ```
