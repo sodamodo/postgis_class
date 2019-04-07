@@ -144,3 +144,34 @@ SELECT ST_DWithin(ST_SetSRID(ST_Point(42.3770, -71.1167), 4326), geom, 200) AS w
 );
 
 SELECT COUNT(*) FROM parcels_within WHERE within = TRUE AND type = 'Commercial';
+```
+
+### Rando dump
+DELETE FROM lines;
+
+DROP TABLE IF EXISTS segmented_line;
+
+CREATE TABLE segmented_line AS (
+		SELECT ST_Segmentize(geog, 1200000) FROM lines
+
+);
+
+
+SELECT * FROM segmented_line;
+
+SELECT ST_AsText(st_segmentize) FROM segmented_line;
+
+SELECT * FROM _segmented_line;
+
+SELECT ST_Segmentize('LINESTRING(1 2, 3 4)'::geometry,0.5)
+
+DELETE FROM lines;
+INSERT INTO lines (name, geog) VALUES ('unsegmented', ST_GeomFromText('LINESTRING(1 2, 3 4)'));
+
+DELETE FROM lines WHERE id = 4;
+
+SELECT * FROM lines;
+
+SELECT * FROM segmented_line;
+
+SELECT * FROM commercial_parcels LIMIT 100;
