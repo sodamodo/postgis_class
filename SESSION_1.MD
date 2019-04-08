@@ -175,3 +175,41 @@ SELECT * FROM lines;
 SELECT * FROM segmented_line;
 
 SELECT * FROM commercial_parcels LIMIT 100;
+
+
+##### ST_Union
+```SQL
+
+DROP TABLE IF EXISTS polygon_union;
+CREATE TABLE polygon_union AS (
+				SELECT ST_Union(geom) FROM polygon
+				);
+SELECT * FROM polygon_union;
+
+
+```
+
+*Subdivide
+*Disolve
+* ST_Segmentize 
+#### Foreign Key
+
+```SQL
+CREATE TABLE tests 
+( 
+   subject_id SERIAL,
+   subject_name text,
+   highestStudent_id integer REFERENCES students
+);
+
+CREATE TABLE students 
+( 
+  student_id SERIAL PRIMARY KEY,
+  player_name TEXT
+);
+```
+#### Common Table Expression
+
+```SQL
+WITH subquery AS (SELECT * FROM X)
+```
