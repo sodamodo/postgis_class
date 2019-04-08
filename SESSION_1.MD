@@ -1,17 +1,32 @@
 Load shapefiles into PgAdmin4
 Install PgAdmin4
 
+MISC TO COVER
+* Casting
+* PostGIS_AddBBox(geometry geomA
+
 ### Loading shapefiles
 shp2pgsql - http://www.bostongis.com/pgsql2shp_shp2pgsql_quickguide.bqg
 ogr2ogr
+
+### TIME
+NOW()
+```SQL
+
+SELECT EXTRACT(hour FROM NOW()) AS hour FROM NOW();
+```
 ## Geography vs Geometry 
 
-#### Funcs
+#### Functions
+generate_series(start, stop) - Generate a series of values, from start to stop with a step size of one
+generate_series(start, stop, step)
 
-#### ST_Segmentize
-Can only be used in geography!
+### ST_Numpoints
+Accepts linestring in geography data type. Returns the number of points in a line or line string.
 
-
+```SQL
+SELECT ST_NumPoints(geog:: geometry) FROM lines;
+```
 
 ##### ST_Distance
 Gives the distance between two features. Notice that the features are in the Geometry data type,
@@ -38,6 +53,49 @@ SELECT * FROM polygon_union;
 
 
 ```
+
+##### ST_CoveredBy
+Returns true if first parameter is covered by the second parameter
+
+
+#### ST_Perimeter
+Returns permiter of polygon
+
+SELECT name, ST_Area(geom:: geography),FROM polygon;
+SELECT name, ST_Area(geom),FROM polygon;
+
+
+
+#### Shorthand
+&& - Returns TRUE if A's 2D bounding box intersects B's 2D bounding box.
+```SQL
+WITH one AS (SELECT geom FROM polygon WHERE name = 'one'), two as (SELECT geom FROM polygon WHERE name = 'one')
+
+SELECT one.geom @@ two.geom FROM one, two;
+```
+
+@ -- Returns TRUE if A's 2D bounding box intersects B's 2D bounding box.
+```SQL
+WITH one AS (SELECT geom FROM polygon WHERE name = 'one'), two as (SELECT geom FROM polygon WHERE name = 'one')
+
+SELECT one.geom @ two.geom FROM one, two;```
+```
+
+~ -- The ~ operator returns TRUE if the bounding box of the left parameter completely contains the bounding box of right parameter.
+
+```SQL
+SELECT tbl1.column1, tbl2.column1, tbl1.column2 ~ tbl2.column2 AS contains
+FROM
+  ( VALUES
+	(1, 'LINESTRING (0 0, 3 3)'::geometry)) AS tbl1,
+  ( VALUES
+	(2, 'LINESTRING (0 0, 4 4)'::geometry),
+	(3, 'LINESTRING (1 1, 2 2)'::geometry),
+	(4, 'LINESTRING (0 0, 3 3)'::geometry)) AS tbl2;
+
+```
+
+
 
 *Subdivide
 *Disolve
@@ -111,6 +169,9 @@ INSERT INTO universities VALUES('Harvard', ST_SetSRID(ST_Point(-71.1167, 42.3770
 CREATE TABLE harvard_buffer AS (SELECT name, ST_Buffer(geom:: geography, 800) AS geom FROM universities WHERE name = 'Harvard');
 
 CREATE TABLE harvard_buffer AS (SELECT name, ST_Buffer(geom:: geography, 1000) AS geom FROM universities WHERE name = 'Harvard');
+
+
+SELECT type, COUNT(type) FROM parcel_points GROUP BY type;
 
 CREATE TABLE commercial_parcels AS (
 	SELECT * FROM parcel_points WHERE type = 'Commercial'
