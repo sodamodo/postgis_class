@@ -20,10 +20,29 @@ CREATE TABLE burgers
 	);
 
 ```
+```SQL
+INSERT INTO burgers(name, origin_state, price, quantity, vegetarian) VALUES('bob''s burgers', 'NJ', 5.95, 2, FALSE);
+INSERT INTO burgers(name, origin_state, price, quantity, vegetarian) VALUES('veggie town', 'CA', 5.95, 5, TRUE);
+INSERT INTO burgers(name, origin_state, price, quantity, vegetarian) VALUES('the slab', 'TX', 25.95, 10, FALSE);
+```
+
+SELECTIONS
+
+```SQL
+SELECT * FROM burgers WHERE quantity > 3;
+```
+
+SELECT * FROM burgers WHERE quantity > 3 AND vegetarian = TRUE;
 
 
+#### Insert Data into table
+
+
+
+```SQL
 SELECT * FROM foods INNER JOIN foods_reviews ON foods.name = foods_reviews.name;
 
+```SQL
 
 * Always use single quotes!
 * USE EXPLICIT ORDERING 
