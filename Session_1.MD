@@ -55,10 +55,10 @@ INSERT INTO reviews VALUES ('bob''s burgers', 'Delicious and cheap');
 
 
 
+## Spatial Data 
 
 
-
-
+### Points 
 
 #### Create points table
 ```SQL
@@ -71,9 +71,11 @@ CREATE TABLE points (
 #### Insert points
 
 ```SQL
-	INSERT INTO points VALUES('first', ST_SetSRID(ST_GeomFromText('POINT(-71.064544 42.28787)'), 4326))
+INSERT INTO points(name, geom) VALUES('first', ST_SetSRID(ST_GeomFromText('POINT(-71.064544 42.28787)'), 4326))
 
+```
 
+```SQL
 SELECT * FROM points;
 ```
 
