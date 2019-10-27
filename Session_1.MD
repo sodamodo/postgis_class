@@ -26,31 +26,38 @@ INSERT INTO burgers(name, origin_state, price, quantity, vegetarian) VALUES('veg
 INSERT INTO burgers(name, origin_state, price, quantity, vegetarian) VALUES('the slab', 'TX', 25.95, 10, FALSE);
 ```
 
+
+
+
+```SQL
+SELECT * FROM burgers INNER JOIN reviews ON burgers.name = reviews.name WHERE burgers.name = 'bob''s burgers';
+```
+
 SELECTIONS
 
 ```SQL
 SELECT * FROM burgers WHERE quantity > 3;
 ```
 
+```SQL
 SELECT * FROM burgers WHERE quantity > 3 AND vegetarian = TRUE;
+```
 
-
-#### Insert Data into table
-
-
-
-```SQL
-SELECT * FROM foods INNER JOIN foods_reviews ON foods.name = foods_reviews.name;
-
-```SQL
-
-* Always use single quotes!
-* USE EXPLICIT ORDERING 
-```SQL
-
-INSERT INTO burgers VALUES ('cheese burger', 'WA', 2.34, 5, False)
+#JOINS
 
 ```
+CREATE TABLE reviews(name VARCHAR, review TEXT)
+```
+
+```SQL
+INSERT INTO reviews VALUES ('bob''s burgers', 'Delicious and cheap');
+```
+
+
+
+
+
+
 
 
 #### Create points table
@@ -69,7 +76,8 @@ CREATE TABLE points (
 
 SELECT * FROM points;
 ```
-* Go to QGIS
+
+
 
 
 ```SQL
