@@ -66,20 +66,21 @@ CREATE TABLE points (
 	id SERIAL PRIMARY KEY,
 	name VARCHAR,
 	geom geometry(POINT, 4326)
-)0 
+)
+```
+
 #### Insert points
 
 ```SQL
-INSERT INTO points(name, geom) VALUES('first', ST_SetSRID(ST_GeomFromText('POINT(-71.064544 42.28787)'), 4326))
+INSERT INTO points(name, geom) VALUES('first', ST_SetSRID(ST_GeomFromText('POINT(0 0)'), 4326))
+```
 
+```SQL
 SELECT * FROM points;
 
-DELETE FROM points;
-
-INSERT INTO points(name, geom) VALUES('zero', ST_SetSRID(ST_GeomFromText('POINT(0 0)'), 4326))
+INSERT INTO points(name, geom) VALUES('zero', ST_SetSRID(ST_GeomFromText('POINT(3 3)'), 4326))
 
 SELECT * FROM points;
-
 ```
 
 
@@ -93,8 +94,51 @@ CREATE TABLE buffered_points AS (
 
 #### Get perimeter of points 
 ```
-SEKECT ST_Perimeter(geom) FROM points;
+SELECT ST_Perimeter(geom) FROM points;
 ```
+
+```SQL
+SELECT ST_Perimeter(geom) FROM buffered_points;
+```
+
+```SQL
+SELECT ST_Perimeter(geom) FROM buffered_points;
+```
+
+```SQL
+SELECT * FROM buffered_points
+```
+
+```SQL
+SELECT ST_Perimeter(st_buffer) FROM buffered_points;
+```
+
+
+###### Do some math?
+
+
+
+
+#### Get area of points 
+
+```SQL
+SELECT ST_Area(geom) FROM points;
+
+```
+
+```SQL
+SELECT ST_Area(st_buffer) FROM buffered_points;
+```
+
+#### Get distance between two points
+
+```SQL
+SELECT ST_Distance(a.geom, b.geom)
+FROM points a, points b
+WHERE a.name ='zero' AND b.name ='first';
+
+```
+
 
 #### Line Table 
 
