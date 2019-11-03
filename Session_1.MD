@@ -66,31 +66,48 @@ CREATE TABLE points (
 	id SERIAL PRIMARY KEY,
 	name VARCHAR,
 	geom geometry(POINT, 4326)
-)
-```
+)0 
 #### Insert points
 
 ```SQL
 INSERT INTO points(name, geom) VALUES('first', ST_SetSRID(ST_GeomFromText('POINT(-71.064544 42.28787)'), 4326))
 
+SELECT * FROM points;
+
+DELETE FROM points;
+
+INSERT INTO points(name, geom) VALUES('zero', ST_SetSRID(ST_GeomFromText('POINT(0 0)'), 4326))
+
+SELECT * FROM points;
+
 ```
+
+
+#### Buffer Point
 
 ```SQL
-SELECT * FROM points;
+CREATE TABLE buffered_points AS (
+	SELECT ST_Buffer(geom, 100) FROM points
+)
 ```
 
+#### Get perimeter of points 
+```
+SEKECT ST_Perimeter(geom) FROM points;
+```
+
+#### Line Table 
 
 
 
 ```SQL
 CREATE TABLE line (
-	##### SETUP ID
+	id SERIAL PRIMARY KEY,
 	line_name VARCHAR,
 	geom GEOMETRY(LINESTRING, 4326)
 );
 
 INSERT INTO line VALUES('first line', ST_GeomFromText('LINESTRING(10 5, 10 6, 10 9, 11 9)', 4326));
-
 
 SELECT ST_Length(geom) FROM line;
 SELECT ST_Length(geom:: geography) FROM line;
