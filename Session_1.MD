@@ -248,10 +248,25 @@ CREATE TABLE difference_buffer AS(
 );
 ```
 
+#### Cambridge Neighborhoods
 
 
+```SQL
+CREATE TABLE coffee_shops
+	(
+	  id serial NOT NULL,
+	  name character varying(50),
+	  address character varying(50),
+	  city character varying(50),
+	  state character varying(50),
+	  zip character varying(10),
+	  lat numeric,
+	  lon numeric
+	);
 
+```
 
+##### Load in CSV
 
 
 
@@ -289,7 +304,6 @@ CREATE TABLE coffee_shops
 	  zip VARCHAR(10),
 	  lat VARCHAR(50),
 	  lon VARCHAR(50),
-	  price VARCHAR(50)
 	);
 
 ```
@@ -304,12 +318,6 @@ ALTER COLUMN price TYPE NUMERIC USING price::numeric;
 
 `ALTER TABLE coffee_shops ADD COLUMN price_word VARCHAR(5);`
 * SET THE WORD LEVEL HERE*
-
-
-###### Spatial Data Types
-
-* ###### Geometry 
-* ###### Geography
 
 
 ##### CREATE NEW COLUMN
@@ -409,7 +417,4 @@ CREATE TABLE coffee_shops_buffer AS (
 
 ```
 
-##### THINGS TO PUT INTO
 
-* Select by distance to location
-* Intersects with incidences of crime
