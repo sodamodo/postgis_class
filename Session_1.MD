@@ -39,9 +39,12 @@ SELECT price FROM burgers;
 SELECT price:: INT FROM burgers;
 ```
 
+```SQL
+ALTER TABLE burgers ADD COLUMN cheap BOOLEAN;
+```
 
 ```SQL
-SELECT * FROM burgers INNER JOIN reviews ON burgers.name = reviews.name WHERE burgers.name = 'bob''s burgers';
+UPDATE burgers SET cheap = TRUE where price < 10;
 ```
 
 SELECTIONS
@@ -54,6 +57,8 @@ SELECT * FROM burgers WHERE quantity > 3;
 SELECT * FROM burgers WHERE quantity > 3 AND vegetarian = TRUE;
 ```
 
+
+
 #JOINS
 
 ```
@@ -64,6 +69,10 @@ CREATE TABLE reviews(name VARCHAR, review TEXT)
 INSERT INTO reviews VALUES ('bob''s burgers', 'Delicious and cheap');
 ```
 
+
+```SQL
+SELECT * FROM burgers INNER JOIN reviews ON burgers.name = reviews.name WHERE burgers.name = 'bob''s burgers';
+```
 
 
 ## Spatial Data 
@@ -268,13 +277,29 @@ CREATE TABLE coffee_shops
 
 ##### Load in CSV
 
+Add geometry column
 
+```SQL
+ALTER TABLE coffee_shop	ADD COLUMN geom geometry(POINT,4326)
+```
 
+```SQL
+UPDATE coffee_shops SET geom = ST_SetSRID(ST_MakePoint(lon,lat),4326);
+```
 
+```SQL
+SELECT cambridge_neighborhoods.name as name, count(*)
+	FROM coffee_shops, cambridge_neighborhoods
+	WHERE ST_Intersects(coffee_shops.geom, cambridge_neighborhoods.geom)
+	GROUP BY cambridge_neighborhoods.name;
+```
 
-
-
-
+```SQL
+SELECT cambridge_neighborhoods.name as name, count(*)
+	FROM coffee_shops, cambridge_neighborhoods
+	WHERE ST_Intersects(coffee_shops.geom, cambridge_neighborhoods.geom)
+	GROUP BY cambridge_neighborhoods.name;
+```
 
 
 
