@@ -1,3 +1,28 @@
+
+1 NHGIS INTRO
+3 California Clone 
+2 Data Prep
+	2.1 Move between spreadsheets 
+	2.2 Create table
+	2.3 Load CSV (VARCHAR)
+3 Talk about data type conversion
+4 Convert numbers to floats
+5 Yelp
+	5.1 Show python script
+	5.2 Load yelp data
+	5.3 Confine yelp data to SF
+	5.4 Load parcel data
+	
+	
+	
+
+
+- COPY DATA FROM INFO SPReADSHEET 
+- CREATE CENSUS TABLE 
+- COPY CSV
+- ADJUST DATA TYPE
+
+
 y_block_subset(GISJOIN VARCHAR, YEAR INT, STATE VARCHAR, COUNTY VARCHAR, COUNTYA INT, COUSUBA INT, TRACTA INT, 
 							 BLKGRPA INT, BLOCKA INT, CDA INT, NAME VARCHAR);
 
