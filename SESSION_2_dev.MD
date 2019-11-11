@@ -23,9 +23,43 @@
 - COPY CSV
 - ADJUST DATA TYPE
 
+* Boston Exercise
+```SQ
+CREATE TABLE coffee_shops
+	(
+	  id serial NOT NULL,
+	  name character varying(50),
+	  address character varying(50),
+	  city character varying(50),
+	  state character varying(50),
+	  zip character varying(10),
+	  lat numeric,
+	  lon numeric
+	);
+```
 
--- CREATE CENSUS TABLE!
+```
 
+```SQL
+ALTER TABLE coffee_shops
+	ADD COLUMN geom geometry(POINT,4326)
+```
+
+
+```SQL
+UPDATE coffee_shops SET geom = ST_SetSRID(ST_MakePoint(lon,lat),4326);
+```
+
+LOAD COFFEE DATA
+
+```SQL
+SELECT cambridge_neighborhoods.name as name, count(*)
+	FROM coffee_shops, cambridge_neighborhoods
+	WHERE ST_Intersects(coffee_shops.geom, cambridge_neighborhoods.geom)
+	GROUP BY cambridge_neighborhoods.name;
+```
+
+* Census Data
 
 ```SQL
 CREATE TABLE combined AS (
