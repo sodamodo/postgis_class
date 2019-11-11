@@ -1,13 +1,28 @@
 
+Spatial Data Types Continued:
 
+POINT(0 0)
 
+LINESTRING(0 0,1 1,1 2)
+
+POLYGON((0 0,4 0,4 4,0 4,0 0),(1 1, 2 1, 2 2, 1 2,1 1))
+
+MULTIPOINT((0 0),(1 2))
+
+MULTILINESTRING((0 0,1 1,1 2),(2 3,3 2,5 4))
+
+MULTIPOLYGON(((0 0,4 0,4 4,0 4,0 0),(1 1,2 1,2 2,1 2,1 1)), ((-1 -1,-1 -2,-2 -2,-2 -1,-1 -1)))
 
 
 Functions:
+
 ST_Centroid(geometry g1);
+
 boolean ST_Crosses(geometry g1, geometry g2);
 
-Chaining Functions:
+boolean ST_IsEmpty(geometry geomA);
+
+boolean ST_Touches(geometry g1, geometry g2);
 
 Extent
 
@@ -16,6 +31,8 @@ CREATE TABLE points(id SERIAL PRIMARY KEY, geom geometry(POLYGON, 4326));
 
 CREATE TABLE point_extent AS (SELECT ST_SetSRID(ST_Extent(geom), 4326) FROM points);
 ```
+
+
 
 * Boston Exercise
 ```SQ
@@ -59,8 +76,7 @@ SELECT cambridge_neighborhoods.name as name, count(*)
 
 ```SQL
 CREATE TABLE combined AS (
-		SELECT id, geom, statefp10, countyfp10, tractce10, blockce10, geoid10, name10, mtfcc10, ur10, uace10, uatyp10,
-		funcstat10, aland10, awater10, intptlat10, intptlon10, shape_area, shape_len,
+		SELECT id, geom, statefp10, countyfp10, tractce10, blockce10, geoid10, name10, mtfcc10, ur10, uace10, 			uatyp10, funcstat10, aland10, awater10, intptlat10, intptlon10, shape_area, shape_len,
 		block_data.gisjoin, total, white_alone, aa_alone, native_alone, asian_alone, pi_alone, two_plus
 		FROM public."CA_block_2010" INNER JOIN block_data ON public."CA_block_2010".gisjoin = block_data.gisjoin
 	);
@@ -83,10 +99,7 @@ ALTER TABLE combined ADD COLUMN white_percentage FLOAT;
 UPDATE combined SET white_percentage = white_alone / total * 100 WHERE total != 0;
 ```
 
-
-
-
-
+* Exercise -- Do different calculations for LA. 
 
 
 
