@@ -1,33 +1,21 @@
 
-0 Cambridge Coffee shosp
 
-1 NHGIS INTRO
-3 California Clone 
-2 Data Prep
-	2.1 Move between spreadsheets 
-	2.2 Create table
-	2.3 Load CSV (VARCHAR)
-3 Talk about data type conversion
-4 Convert numbers to floats
-5 Yelp
-	5.1 Show python script
-	5.2 Load yelp data
-	5.3 Confine yelp data to SF
-	5.4 Load parcel data
-	
-	
-
-
-- COPY DATA FROM INFO SPReADSHEET 
-- CREATE CENSUS TABLE 
-- COPY CSV
-- ADJUST DATA TYPE
 
 
 
 Functions:
 ST_Centroid(geometry g1);
+boolean ST_Crosses(geometry g1, geometry g2);
 
+Chaining Functions:
+
+Extent
+
+```SQL 
+CREATE TABLE points(id SERIAL PRIMARY KEY, geom geometry(POLYGON, 4326));
+
+CREATE TABLE point_extent AS (SELECT ST_SetSRID(ST_Extent(geom), 4326) FROM points);
+```
 
 * Boston Exercise
 ```SQ
@@ -55,14 +43,13 @@ ALTER TABLE coffee_shops
 UPDATE coffee_shops SET geom = ST_SetSRID(ST_MakePoint(lon,lat),4326);
 ```
 
-LOAD COFFEE DATA
-
 ```SQL
 SELECT cambridge_neighborhoods.name as name, count(*)
 	FROM coffee_shops, cambridge_neighborhoods
 	WHERE ST_Intersects(coffee_shops.geom, cambridge_neighborhoods.geom)
 	GROUP BY cambridge_neighborhoods.name;
 ```
+
 
 * Census Data
 
