@@ -1,4 +1,41 @@
 
+
+
+YELP
+--Show website
+--Show script
+--Create table
+--Upload CSV
+
+
+CREATE BUSINESS TABLE
+
+```SQL
+CREATE TABLE business(
+	business_id VARCHAR,
+	business_name VARCHAR,
+	address VARCHAR,
+	city VARCHAR,
+	location_state VARCHAR,
+	postal_code VARCHAR,
+	latitude VARCHAR,
+	longitude VARCHAR,
+	stars VARCHAR,
+	review_count VARCHAR,
+	is_open VARCHAR,
+	business_attributes VARCHAR,
+	categories VARCHAR,
+	hours VARCHAR 
+);
+
+```
+
+LOAD THE DATA!
+
+
+
+
+
 y_block_subset(GISJOIN VARCHAR, YEAR INT, STATE VARCHAR, COUNTY VARCHAR, COUNTYA INT, COUSUBA INT, TRACTA INT, 
 							 BLKGRPA INT, BLOCKA INT, CDA INT, NAME VARCHAR);
 
