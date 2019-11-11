@@ -23,6 +23,12 @@
 - COPY CSV
 - ADJUST DATA TYPE
 
+
+
+Functions:
+ST_Centroid(geometry g1);
+
+
 * Boston Exercise
 ```SQ
 CREATE TABLE coffee_shops
@@ -38,7 +44,6 @@ CREATE TABLE coffee_shops
 	);
 ```
 
-```
 
 ```SQL
 ALTER TABLE coffee_shops
@@ -60,6 +65,10 @@ SELECT cambridge_neighborhoods.name as name, count(*)
 ```
 
 * Census Data
+
+1. Extra data from spreadsheet
+2. Create table with extracted spreadsheet data
+
 
 ```SQL
 CREATE TABLE combined AS (
@@ -89,36 +98,16 @@ UPDATE combined SET white_percentage = white_alone / total * 100 WHERE total != 
 
 
 
-YELP
---Show website
---Show script
---Create table
---Upload CSV
 
 
-CREATE BUSINESS TABLE
 
-```SQL
-CREATE TABLE business(
-	business_id VARCHAR,
-	business_name VARCHAR,
-	address VARCHAR,
-	city VARCHAR,
-	location_state VARCHAR,
-	postal_code VARCHAR,
-	latitude VARCHAR,
-	longitude VARCHAR,
-	stars VARCHAR,
-	review_count VARCHAR,
-	is_open VARCHAR,
-	business_attributes VARCHAR,
-	categories VARCHAR,
-	hours VARCHAR 
-);
 
-```
 
-LOAD THE DATA!
+
+
+
+
+
 
 
 
