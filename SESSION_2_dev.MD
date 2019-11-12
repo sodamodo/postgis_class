@@ -24,6 +24,8 @@ boolean ST_IsEmpty(geometry geomA);
 
 boolean ST_Touches(geometry g1, geometry g2);
 
+boolean ST_Overlaps(geometry A, geometry B);
+
 Extent
 
 ```SQL 
