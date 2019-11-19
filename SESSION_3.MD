@@ -26,7 +26,7 @@ ALTER TABLE sf_parcels ADD COLUMN longitude VARCHAR;
 ```
 
 ```SQL
-UPDATE sf_parcels SET longitude = split_part(geom_input, ',', 1);
+UPDATE sf_parcels SET latitude = split_part(geom_input, ',', 1);
 UPDATE sf_parcels SET longitude = split_part(geom_input, ',', 2);
 ```
 
