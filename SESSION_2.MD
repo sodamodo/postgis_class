@@ -1,4 +1,8 @@
 
+## Projected Coordinated
+
+WGS84 UTM Zone 10 North: 32610
+
 Spatial Data Types Continued:
 
 POINT(0 0)
