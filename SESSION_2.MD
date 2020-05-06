@@ -20,7 +20,7 @@ MULTIPOLYGON(((0 0,4 0,4 4,0 4,0 0),(1 1,2 1,2 2,1 2,1 1)), ((-1 -1,-1 -2,-2 -2,
 
 Functions:
 
-ST_Centroid(geometry g1);
+geom ST_Centroid(geometry g1);
 
 boolean ST_Contains(geometry geomA, geometry geomB);
 
