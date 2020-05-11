@@ -1,10 +1,9 @@
 ```SQL
-CREATE TABLE bay_block_data_subset(
+CREATE TABLE bay_block_data (
 
-  GISJOIN VARCHAR,
+  gisjoin VARCHAR,
   county VARCHAR, 
   blocka VARCHAR, 
-
   total VARCHAR,
   white_alone VARCHAR,
   aa_alone VARCHAR,
@@ -16,4 +15,9 @@ CREATE TABLE bay_block_data_subset(
 
 );
 
+```
+
+```SQL
+SELECT blocka, aa_alone, geom FROM "CA_blocks_bay_subset" INNER JOIN bay_block_data_subset
+	ON  "CA_blocks_bay_subset".gisjoin = bay_block_data_subset.gisjoin;
 ```
