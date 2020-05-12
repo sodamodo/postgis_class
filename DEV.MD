@@ -45,13 +45,18 @@ CREATE TABLE bay_block_data (
 ALTER TABLE public.bayareablock00 RENAME TO bay_area_block;
 ```
 
+
+
+
 ```SQL
-SELECT blocka, aa_alone, geom FROM "CA_blocks_bay_subset" INNER JOIN bay_block_data_subset
-	ON  "CA_blocks_bay_subset".gisjoin = bay_block_data_subset.gisjoin;
+
+SELECT county, total, white_alone, aa_alone, native_alone, asian_alone, pi_alone, two_plus_alone, two_plus
+FROM bay_blocks INNER JOIN bay_block_data ON
+bay_blocks."BLOCKCE10" = public.bay_block_data.blocka WHERE bay_block_data.county = 'Alameda County';
 ```
 
-
-
-
-SELECT county, geom FROM bay_blocks INNER JOIN bay_block_data ON
-bay_blocks."BLOCKCE10" = public.bay_block_data.blocka LIMIT 100;
+```SQL
+CREATE TABLE alameda_blocks AS (SELECT geom, county, total, white_alone, aa_alone, native_alone, asian_alone, pi_alone, two_plus_alone, two_plus
+FROM bay_blocks INNER JOIN bay_block_data ON
+bay_blocks."BLOCKCE10" = public.bay_block_data.blocka WHERE bay_block_data.county = 'Alameda County');
+```
